@@ -9,17 +9,22 @@ def tirada_dados (cantidad):
 
 def generala(dados,posiciones):
     print('Bienvenido al juego de la generala!!!')
-    tirada = 0
+    tiradas = 0
     cont_jugador = 1
     seguir = True
     jugar = ''
     while jugar != '1' :
         jugar = input('Presione 1 para jugar:')
     dados_actuales = tirada_dados (5)
-    tirada += 1
+    tiradas += 1
     print('Tus dados actuales son: ', dados_actuales)
-    while tiadas < 3:
+    while tiradas < 3:
         continuar = input('Desea continuar? Si lo desea: escriba s, de lo contrario, escriba n: ')
-
+        if continuar == 'n':
+            break
+        if continuar == 's':
+            cambiar = input('Que posiciones desea cambiar (0 al 4): ')
+        else:
+            print('Opción no válida, escriba s o n.') 
 dados = 5
 generala(dados,posiciones)
