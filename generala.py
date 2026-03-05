@@ -35,3 +35,5 @@ def generala(dados):
     print('Fin del turno. Tus dados finales son: ', dados_actuales)
 dados = 5
 generala(dados)
+
+## me falta poder cambiar mas de una posicion por turno ; armarlo para dos jugadores ; toda la parte de puntos y ganadores
