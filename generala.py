@@ -7,7 +7,7 @@ def tirada_dados (cantidad):
     return dados
 
 
-def generala(dados,posiciones):
+def generala(dados):
     print('Bienvenido al juego de la generala!!!')
     tiradas = 0
     cont_jugador = 1
@@ -24,7 +24,14 @@ def generala(dados,posiciones):
             break
         if continuar == 's':
             cambiar = input('Que posiciones desea cambiar (0 al 4): ')
+            posiciones_a_cambiar = [int(p) for p in cambiar.split()] # Reemplazamos SOLO los dados en esas posiciones
+            for i in posiciones_a_cambiar:
+                if 0 <= i <= 4: # Validamos que la posición sea correcta
+                    dados_actuales[i] = randint(1, 6)
+            tiradas += 1
+            print('Tus nuevos dados son: ', dados_actuales)
         else:
-            print('Opción no válida, escriba s o n.') 
+            print('Opción no válida, escriba s o n.')
+    print('Fin del turno. Tus dados finales son: ', dados_actuales)
 dados = 5
-generala(dados,posiciones)
+generala(dados)
