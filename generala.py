@@ -6,17 +6,10 @@ def tirada_dados (cantidad):
         dados.append(randint(1,6))
     return dados
 
-
-def generala(dados):
-    print('Bienvenido al juego de la generala!!!')
-    tiradas = 0
-    cont_jugador = 1
-    seguir = True
-    jugar = ''
-    while jugar != '1' :
-        jugar = input('Presione 1 para jugar:')
+def jugar_turno(nombre_jugador):
+    print(f"\n--- TURNO DE: {nombre_jugador} ---") ###
     dados_actuales = tirada_dados (5)
-    tiradas += 1
+    tiradas = 1
     print('Tus dados actuales son: ', dados_actuales)
     while tiradas < 3:
         continuar = input('Desea continuar? Si lo desea: escriba s, de lo contrario, escriba n: ')
@@ -33,7 +26,16 @@ def generala(dados):
         else:
             print('Opción no válida, escriba s o n.')
     print('Fin del turno. Tus dados finales son: ', dados_actuales)
-dados = 5
-generala(dados)
+    return dados_actuales
 
-## me falta poder cambiar mas de una posicion por turno ; armarlo para dos jugadores ; toda la parte de puntos y ganadores
+def generala():
+    print('Bienvenido al juego de la generala!!!')
+    jugar = ''
+    while jugar != '1' :
+        jugar = input('Presione 1 para jugar:')
+    for ronda in range(1,12):
+        print("\n=== RONDA", ronda, "===") ###
+        dados_j1 = jugar_turno ('Jugador 1')
+        dados_j2 = jugar_turno ('Jugador 2')
+
+generala()
