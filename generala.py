@@ -19,9 +19,6 @@ def calcular_puntos(dados):
         return 'F' , 30
     return None , 0
 
-def puntos_por_numero (dados,numero_elegido):
-    return dados.count(numero_elegido)*numero_elegido
-
 def calcular_puntuacion(dados,tirada,categoria):
     if categoria in ['1','2','3','4','5','6']:
         num = int(categoria)
@@ -82,7 +79,7 @@ def jugar_turno(nombre_jugador,planilla_actual):
 
     libres = [c for c, v in planilla_actual.items() if v is None]
     print('Categorías disponibles:', libres)
-    eleccion = ""
+    eleccion = ''
     while eleccion not in libres:
         eleccion = input('¿En qué categoría querés anotar los puntos?: ').upper()
         if eleccion not in libres:
@@ -101,34 +98,50 @@ def generala():
     categorias = ['1','2','3','4','5','6','E','F','P','G']
     planilla_j1 = {cat:None for cat in categorias}
     planilla_j2 = {cat:None for cat in categorias}
-    for ronda in range(1,12):
-        print("\n=== RONDA", ronda, "===")
-        dados_j1 = jugar_turno ('Jugador 1')
-        dados_j2 = jugar_turno ('Jugador 2')
+    for ronda in range(1, 11):
+        print('\n=== RONDA', ronda, '===')
 
-        victoria_directa_j1 = jugar_turno("Jugador 1", planilla_j1)
-        if victoria_directa_j1:
-            print("\n¡EL JUGADOR 1 GANÓ POR GENERALA REAL!")
+        victoria_j1 = jugar_turno('Jugador 1', planilla_j1) 
+        guardar_csv(planilla_j1,planilla_j2)
+        if victoria_j1: 
             break
-            
-        victoria_directa_j2 = jugar_turno("Jugador 2", planilla_j2)
-        if victoria_directa_j2:
-            print("\n¡EL JUGADOR 2 GANÓ POR GENERALA REAL!")
+        victoria_j2 = jugar_turno('Jugador 2', planilla_j2)
+        guardar_csv(planilla_j1,planilla_j2)
+        if victoria_j2: 
             break
 
     total_j1 = sum(v for v in planilla_j1.values() if v is not None)
     total_j2 = sum(v for v in planilla_j2.values() if v is not None)
     
-    print("\n--- PUNTAJE FINAL ---")
-    print(f"Jugador 1: {total_j1}")
-    print(f"Jugador 2: {total_j2}")
+    print('\n--- PUNTAJE FINAL ---')
+    print(f'Jugador 1: {total_j1}')
+    print(f'Jugador 2: {total_j2}')
     
     if total_j1 > total_j2:
-        print("¡Ganador: Jugador 1!")
+        print('¡Ganador: Jugador 1!')
     elif total_j2 > total_j1:
-        print("¡Ganador: Jugador 2!")
+        print('¡Ganador: Jugador 2!')
     else:
-        print("¡Empate!")      
+        print('¡Empate!')      
 
+def guardar_csv(planilla_j1,planilla_j2):
+    try:
+        with open('jugadas.csv','w') as archivo:
+            archivo.write('jugada,j1,j2\n')
+
+            for cat in planilla_j1.keys():
+                if planilla_j1[cat] is not None:
+                    v1 = planilla_j1[cat]
+                else:
+                    v1 = 0
+                if planilla_j2[cat] is not None:
+                    v2 = planilla_j2[cat]
+                else:
+                    v2 = 0
+                linea = str(cat) + ',' + str(v1) + ',' + str(v2) + '\n'
+                archivo.write(linea)
+        print('Planilla guardada en jugadas.csv')
+    except:
+        print('Error al guardar el archivo')
 
 generala()
