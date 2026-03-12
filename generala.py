@@ -57,7 +57,7 @@ def calcular_puntuacion(dados,tirada,categoria):
     return 0
 
 def jugar_turno(nombre_jugador,planilla_actual):
-    print(f"\n--- TURNO DE: {nombre_jugador} ---")
+    print('\n--- TURNO DE: ',nombre_jugador,' ---')
     dados_actuales = tirada_dados (5)
     tiradas = 1
     print('Tus dados actuales son: ', dados_actuales)
@@ -77,8 +77,12 @@ def jugar_turno(nombre_jugador,planilla_actual):
             print('Opción no válida, escriba s o n.')
     print('Fin del turno. Tus dados finales son: ', dados_actuales)
 
-    libres = [c for c, v in planilla_actual.items() if v is None]
+    libres = []
+    for categoria, puntaje in planilla_actual.items():
+        if puntaje is None: #Si el puntaje es None, significa que esa jugada no se usó
+            libres.append(categoria)
     print('Categorías disponibles:', libres)
+    
     eleccion = ''
     while eleccion not in libres:
         eleccion = input('¿En qué categoría querés anotar los puntos?: ').upper()
@@ -114,8 +118,8 @@ def generala():
     total_j2 = sum(v for v in planilla_j2.values() if v is not None)
     
     print('\n--- PUNTAJE FINAL ---')
-    print(f'Jugador 1: {total_j1}')
-    print(f'Jugador 2: {total_j2}')
+    print('Jugador 1: ',total_j1)
+    print('Jugador 2: ',total_j2)
     
     if total_j1 > total_j2:
         print('¡Ganador: Jugador 1!')
