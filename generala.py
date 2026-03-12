@@ -149,3 +149,5 @@ def guardar_csv(planilla_j1,planilla_j2):
         print('Error al guardar el archivo')
 
 generala()
+
+#juego terminado
